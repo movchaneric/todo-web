@@ -27,4 +27,4 @@ A To Do web application with features for adding, deleting, and editing tasks. U
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/todo-web-app.git
+   git clone https://github.com/[username]/todo-web.git
