@@ -2,7 +2,10 @@
 
 A To Do web application with features for adding, deleting, and editing tasks. Users can create an account and manage their own tasks.
 
-(https://github.com/movchaneric/Web-Task-App/assets/60579831/799b24a1-bbfe-4512-a15c-ac0877c3d0b0)
+
+https://github.com/movchaneric/todo-web/assets/60579831/eca39bb5-8f70-453e-9ae1-96c389973e93
+
+
 ## Features
 
 - **User Authentication:** Users can create accounts and log in to manage their tasks securely.
@@ -26,4 +29,14 @@ A To Do web application with features for adding, deleting, and editing tasks. U
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/[username]/todo-web.git
+   git clone https://github.com/your-username/todo-web-app.git
+
+2. Run the project
+
+   ```bash
+   npm start
+
+3. Go to:
+
+   ```bash
+   localhost:3000
