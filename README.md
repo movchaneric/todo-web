@@ -3,7 +3,15 @@
 A To Do web application with features for adding, deleting, and editing tasks. Users can create an account and manage their own tasks.
 
 
-https://github.com/movchaneric/todo-web/assets/60579831/eca39bb5-8f70-453e-9ae1-96c389973e93
+
+https://github.com/movchaneric/todo-web/assets/60579831/ee7b4e3d-b7ae-4de4-afb2-94c99c2ce59e
+
+
+
+
+https://github.com/movchaneric/todo-web/assets/60579831/5ae0c428-370c-415d-91b8-5fd3741df3c2
+
+
 
 
 ## Features
