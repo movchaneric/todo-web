@@ -2,8 +2,7 @@
 
 A To Do web application with features for adding, deleting, and editing tasks. Users can create an account and manage their own tasks.
 
-![Screenshot](./screenshot.png)
-
+(https://github.com/movchaneric/Web-Task-App/assets/60579831/799b24a1-bbfe-4512-a15c-ac0877c3d0b0)
 ## Features
 
 - **User Authentication:** Users can create accounts and log in to manage their tasks securely.
