@@ -1,100 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Colorlib Templates">
+    <meta name="author" content="Colorlib">
+    <meta name="keywords" content="Colorlib Templates">
+
     <title><%= pageTitle %></title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="/css/register.css" rel="stylesheet" media="all">
 </head>
-
 <body>
+    <div style="display: flex; justify-content: space-between; align-items: center; background-color:darkgrey;">
+        <form action="/logout" method="post" style="margin: 0;">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button class="btn btn-danger" type="submit">Logout</button>
+        </form>
 
-<div style="display: flex; justify-content: space-between; align-items: center;">
-    <form action="/logout" method="post" style="margin: 0;">
-        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-        <button class="btn btn-danger" type="submit">Logout</button>
-    </form>
-    
-    <div style="display: flex; align-items: center;">
-        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-        <a href="./profile-page" style="margin-right: 10px;"><%= username %></a>
-        <img alt="image" src="<%= profilePicture %>" style="width: 80px;height: 80px; border-radius: 50%;">
-    </div>
-</div>
-    
-<section class="vh-100" style="background-color: #eee;">
-    <div class="container py-5 h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col col-lg-9 col-xl-7">
-                <div class="card rounded-3">
-                    <div class="card-body p-4">
-
-                        <h4 class="text-center my-3 pb-3">To Do App</h4>
-                        <!-- FORM -->
-                        <form action="/add-task" method="POST" class="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-4 pb-2">
-                            <div class="col-12">
-                                <div class="form-outline">
-                                    <input type="text" id="form1" class="form-control" name="taskDesc"/>
-                                    <label class="form-label" for="form1">Enter a task here</label>
-                                </div>
-                            </div>
-
-                            <div class="col-12">
-                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                                <button type="submit" class="btn btn-primary">Add Task</button>
-                            </div>
-                        </form>
-
-                        <table class="table mb-4">
-                            <% if(taskLength > 0) {%>
-                            <thead>
-                            <tr>
-                                <th scope="col">No.</th>
-                                <th scope="col">Todo item</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Actions</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <!-- Traverse tasks array of Task objects   -->
-                                <% let taskCounter = 0 %>
-                                <% for (let task of tasks) { %>
-                                <tr>
-                                    <th scope="row"><%= taskCounter + 1 %></th>
-                                    <td><%= task.description %></td>
-                                    <td><%= task.status %></td>
-                                    <td>
-                                    <div style="display: inline-block;">
-                                        <form action="/remove-task" method="post" class="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-4 pb-2">
-                                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                                            <button type="submit" class="btn btn-danger">Delete</button>
-                                            <input type="hidden" value="<%= task._id %>" name="taskId">
-                                        </form>
-
-                                        <form action="/finish-task" method="post" class="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-4 pb-2">
-                                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                                            <button type="submit" class="btn btn-success ms-1">Finished</button>
-                                            <input type="hidden" value="<%= task._id %>" name="taskId">
-                                        </form>
-                                    </div>
-                                    </td>
-                                </tr>
-                                <% taskCounter++ %>
-                                <% } %>
-                            </tbody>
-                                <% } else { %>
-                                    <h1>No tasks for now! your free.</h1>
-                                <% }%>
-                        </table>
-
-                    </div>
-                </div>
-            </div>
+        <div style="display: flex; align-items: center;">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <a href="./profile-page" style="margin-right: 10px; text-decoration: none;">
+                <%= username %>
+            </a>
+            <img alt="image" src="<%= profilePicture %>" style="width: 80px;height: 80px; border-radius: 50%;">
         </div>
     </div>
-</section>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <div style="background-color:lightgray;">
+        <!-- class="vh-100" style="background-color: #eee;" -->
+        <section class="vh-100">
+            <div class="container py-5 h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col col-lg-9 col-xl-7">
+                        <div class="card rounded-3">
+                            <div class="card-body p-4">
+                                <!-- add new task -->
+                                <form action="/add-task" method="POST"
+                                    class="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-4 pb-2">
+
+                                    <div class="col-12">
+                                        <div class="form-outline">
+                                            <input type="text" id="form1" class="form-control" name="taskDesc" />
+                                            <label class="form-label" for="form1">Enter a task here</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                        <button type="submit" class="btn btn-primary">Add Task</button>
+                                    </div>
+
+                                </form>
+
+                                <table class="table mb-4">
+                                    <% if(taskLength> 0) {%>
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">No.</th>
+                                                <th scope="col">Description</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Traverse tasks array of Task objects   -->
+                                            <% let taskCounter=0 %>
+                                                <% for (let task of tasks) { %>
+                                                    <tr>
+                                                        <th scope="row">
+                                                            <%= taskCounter + 1 %>
+                                                        </th>
+                                                        <td>
+                                                            <%= task.description %>
+                                                        </td>
+                                                        <td>
+                                                            <%= task.status %>
+                                                        </td>
+                                                        <td>
+                                                            <div style="display: inline-block;">
+                                                                <form action="/remove-task" method="post"
+                                                                    class="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-4 pb-2">
+                                                                    <input type="hidden" name="_csrf"
+                                                                        value="<%= csrfToken %>">
+                                                                    <button type="submit"
+                                                                        class="btn btn-danger">Delete</button>
+                                                                    <input type="hidden" value="<%= task._id %>"
+                                                                        name="taskId">
+                                                                </form>
+
+                                                                <form action="/finish-task" method="post"
+                                                                    class="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-4 pb-2">
+                                                                    <input type="hidden" name="_csrf"
+                                                                        value="<%= csrfToken %>">
+                                                                    <button type="submit"
+                                                                        class="btn btn-success ms-1">Finished</button>
+                                                                    <input type="hidden" value="<%= task._id %>"
+                                                                        name="taskId">
+                                                                </form>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <% taskCounter++ %>
+                                                        <% } %>
+                                        </tbody>
+                                        <% } else { %>
+                                            <h1>No tasks for now! your free.</h1>
+                                            <% }%>
+                                </table>
+                            </div>
+                                <section class="pagination justify-content-center">
+                                    <% if(currentPage !== 1) { %>
+                                        <a href="/?page=1">1</a>
+                                    <% } %>
+                                    <a href="/?page=<%= currentPage%>"><%= currentPage %></a>
+                                    <% if(hasNext) { %>
+                                        <a href="/?page=<%= nextPage%>"><%= nextPage %></a>
+                                    <% } %> 
+                                    <% if(lastPage !== currentPage && nextPage !== lastPage) { %>
+                                        <a href="/?page=<%= lastPage%>"><%= lastPage %></a>
+                                    <% } %> 
+                                    </section>
+                        </div>
+                        
+                    </div>
+                    
+                </div> 
+                
+            </div>
+           
+        </section>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+            crossorigin="anonymous"></script>
+    </div>
+
 </body>
 
 </html>

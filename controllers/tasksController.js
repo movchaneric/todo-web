@@ -1,28 +1,37 @@
 const Task = require('../models/task');
 const User = require('../models/user');
 
-exports.getUserTasks = (req, res) => {
-    const userIdConnceted = req.session.user._id; //use to filter by which user is connected to get specific tasks.
-    const imageUrl = req.file
-    User.findOne({_id: userIdConnceted})
-    .then(user => {
-        const username = user.email.split('@')[0]; //get only the name before the @
-        Task.find({userId: userIdConnceted})
-                .then(userTasks => {
-                    res.render('../views/index', {
-                        pageTitle: 'Add Your tasks!',
-                        tasks: userTasks,
-                        taskLength: userTasks.length,
-                        username: username,
-                        profilePicture: user.image
-                    })
-                })
-                .catch(err => {
-                    console.log('fetchAllTasks error: ', err);
-                })
-    }).catch(err => {
-        const error = new Error(err);
-        return next(error);
-    })
-    
-}
+const TASK_PER_PAGE = 2;
+
+exports.getUserTasks =  async (req, res, next) => {
+    const userIdConnected = req.session.user._id;
+    const imageUrl = req.file;
+    const pageNumber = parseInt(req.query.page) || 1;
+    let totalNumOfTasks;
+    try {
+        const numOfTasks = await Task.find().count();
+        const userTasks = await Task.find({ userId: userIdConnected }).skip((pageNumber - 1) * TASK_PER_PAGE).limit(TASK_PER_PAGE);
+        const user = await User.findOne({ _id: userIdConnected });
+        const username = user.email.split('@')[0];
+
+        res.render('../views/index', {
+            pageTitle: 'Add Your tasks!',
+            tasks: userTasks,
+            taskLength: userTasks.length,
+            username: username,
+            profilePicture: user.image,
+            totalTasks: numOfTasks,
+            hasNext: (TASK_PER_PAGE * pageNumber) < numOfTasks,
+            hasPrevious: pageNumber > 1,
+            nextPage: pageNumber + 1,
+            prevPage: pageNumber - 1,
+            lastPage: Math.ceil(numOfTasks / TASK_PER_PAGE),
+            currentPage: pageNumber
+        });  
+    }catch(err) {
+        console.log('User.findOne error: ', err);
+        res.redirect('/404');
+    };
+};
+
+
