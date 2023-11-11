@@ -1,6 +1,6 @@
 # Ignore uploads directory
-/uploads/
+.uploads/
 # Ignore .env file
-/server/src/.env
+.server/src/.env
 .vscode/
 .idea/
