@@ -2,6 +2,6 @@
 uploads
 # Ignore .env file
 server/src/.env
-.vscode
-.idea
+vscode
+idea
 node_modules
