@@ -3,7 +3,7 @@ const User = require('../models/user');
 
 const TASK_PER_PAGE = 2;
 
-exports.getUserTasks =  async (req, res, next) => {
+exports.getUserTasks = async (req, res, next) => {
     const userIdConnected = req.session.user._id;
     const imageUrl = req.file;
     const pageNumber = parseInt(req.query.page) || 1;
@@ -27,8 +27,8 @@ exports.getUserTasks =  async (req, res, next) => {
             prevPage: pageNumber - 1,
             lastPage: Math.ceil(numOfTasks / TASK_PER_PAGE),
             currentPage: pageNumber
-        });  
-    }catch(err) {
+        });
+    } catch (err) {
         console.log('User.findOne error: ', err);
         res.redirect('/404');
     };
