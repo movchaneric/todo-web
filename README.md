@@ -2,11 +2,7 @@
 
 A To Do web application with features for adding, deleting, and editing tasks. Users can create an account and manage their own tasks.
 
-
-
 https://github.com/movchaneric/todo-web/assets/60579831/9825dc72-5d1a-47c5-925d-e88b950a3e4d
-
-
 
 ## Features
 
@@ -20,11 +16,19 @@ https://github.com/movchaneric/todo-web/assets/60579831/9825dc72-5d1a-47c5-925d-
 
 ## Technologies Used
 
-- **Node.js** 
+- **Node.js**
 - **Express.js**
 - **HTML (EJS)**
-- **CSS** 
+- **CSS**
 - **MongoDB**
+
+## Production test
+
+1. Visit :
+
+   ```bash
+   https://todoapp-web-node-f748f080734a.herokuapp.com/Register
+   ```
 
 ## Installation
 
@@ -33,12 +37,17 @@ https://github.com/movchaneric/todo-web/assets/60579831/9825dc72-5d1a-47c5-925d-
    ```bash
    git clone https://github.com/your-username/todo-web-app.git
 
+   ```
+
 2. Run the project
 
    ```bash
    npm start
 
+   ```
+
 3. Go to:
 
    ```bash
    localhost:3000
+   ```
