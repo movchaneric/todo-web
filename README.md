@@ -27,7 +27,7 @@ https://github.com/movchaneric/todo-web/assets/60579831/9825dc72-5d1a-47c5-925d-
 1. Visit :
 
    ```bash
-   https://todoapp-web-node-f748f080734a.herokuapp.com/Register
+   https://todoapp-web-node-f748f080734a.herokuapp.com
    ```
 
 ## Installation
