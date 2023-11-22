@@ -252,7 +252,7 @@ exports.postResetForm = async (req, res, next) => {
     }
 };
 
-//TODO: continue working on profil page and POST
+
 exports.getProfilePage = async (req, res, next) => {
     const userIdConnceted = req.session.user._id; //get user id
 
@@ -268,7 +268,7 @@ exports.getProfilePage = async (req, res, next) => {
             try {
                 const taskCount = await Task.count({ userId: userIdConnceted });
                 return res.render("../views/profile-page", {
-                    pageTitle: "profile",
+                    pageTitle: "profile-page",
                     numberOfTasks: taskCount,
                     numberOfFinishedTasks: numOfTasksDone,
                     username: username,
@@ -315,5 +315,46 @@ exports.postProfiePage = async (req, res, next) => {
         } catch (updateErr) {
             console.log("postProfiePage findByIdAndUpdate error: ", err);
         }
+    }
+};
+
+
+
+/*--------------- GraphQl TEST --------------- */
+
+exports.postLoginUser = async (req, res, next) => {
+    const email = req.body.email;
+    const password = req.body.password;
+
+    try {
+        const user = await User.findOne({ email: email });
+        if (!user) {
+            req.flash("error", "Email or Password are not valid"); //pass flash message to login page after rendring using a session
+            res.redirect("/login"); //User not found
+        }
+
+        const passwordMatch = await bcrypt.compare(password, user.password);
+        //check if the password is correct
+        if (passwordMatch) {
+            req.session.isLoggedin = true; //setup a session
+            req.session.user = user; //save the user found in foundOne at the first .then
+            console.log("After req.session.user");
+            console.log("Password matched saving session and redirecting...");
+            return req.session.save((err) => {
+                if (err) {
+                    console.log("req.session.save error: ", err);
+                } else {
+                    res.redirect("/");
+                }
+            });
+        } else {
+            req.flash("error", "Email or Password are not valid");
+            console.log("Password is not correct redirecting back to login page.");
+            res.redirect("/login");
+        }
+    } catch (err) {
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
     }
 };

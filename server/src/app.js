@@ -10,12 +10,46 @@ const multer = require("multer");
 const helmet = require("helmet");
 const compression = require("compression");
 
+const { graphqlHTTP } = require("express-graphql");
+const graphqlSchema = require("../../graphql/schema.js");
+const graphqlResolver = require("../../graphql/resolver.js");
+
 const multerCnfg = require("../../util/multer-conf.js");
 require("dotenv").config({ path: path.join(__dirname, "/.env") }); //load .env variables
 
 const app = express();
 
 const csrfProtection = csrf();
+
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE, PATCH"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Content-Type",
+    "Authorization"
+  );
+  res.setHeader("Access-Control-Allow-Credentials", true);
+
+  if (req.method === "OPTION") {
+    return res.sendStatus(200);
+  }
+
+  next();
+});
+
+// GraphQL
+app.use(
+  "/graphql",
+  graphqlHTTP({
+    schema: graphqlSchema,
+    rootValue: graphqlResolver,
+    graphiql: true,
+  })
+);
 
 const tasks = new MongoDBStore({
   uri: process.env.MONGODB_URI,
@@ -80,7 +114,7 @@ mongoose
   .connect(process.env.MONGODB_URI)
   .then(() => {
     console.log("Mongoose connect: Connected");
-    app.listen(process.env.PORT);
+    app.listen(3000);
     console.log("Listening to port 3000");
   })
   .catch();
