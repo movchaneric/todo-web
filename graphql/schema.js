@@ -8,7 +8,7 @@ module.exports = buildSchema(
     }
  
     type UserAuthData {
-        isLoggedin: String!
+        token: String!
         userId: String!
     }
 
